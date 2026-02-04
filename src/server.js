@@ -16,6 +16,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ============================================================
+// INICIALIZACIÓN DE LA BASE DE DATOS
+// ============================================================
+
+// require("./db/init"): Ejecuta el script de inicialización
+// Esto crea las tablas (users, items) si no existen
+// Debe llamarse ANTES de definir las rutas que usen la BD
+require("./db/init");
+
+// Rutas de autenticación
+const authRoutes = require("./routes/auth.routes");
+// Rutas de items (protegidas)
+const itemsRoutes = require("./routes/items.routes");
+
+// ============================================================
 // MIDDLEWARES
 // ============================================================
 
@@ -37,8 +51,12 @@ app.get("/", (req, res) => {
 // TODO: Descomenta estas líneas después de crear las rutas
 // const authRoutes = require("./routes/auth.routes");
 // const itemsRoutes = require("./routes/items.routes");
-// app.use("/api/auth", authRoutes);
-// app.use("/api/items", itemsRoutes);
+
+// Rutas de autenticación (públicas)
+app.use("/api/auth", authRoutes);
+
+// Rutas de items (protegidas por el middleware auth)
+app.use("/api/items", itemsRoutes);
 
 // ============================================================
 // INICIO DEL SERVIDOR

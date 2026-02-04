@@ -42,13 +42,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // Exportamos la instancia 'db' para usarla en otros archivos
 // Será importada con: const db = require("../db/sqlite");
 module.exports = db;
-```
 
-### 5.2. Crear tablas (usuarios + recurso extra)
-
-Archivo: `src/db/init.js`
-
-```javascript
 // ============================================================
 // IMPORTACIÓN DE MÓDULOS
 // ============================================================
